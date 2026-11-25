@@ -363,3 +363,10 @@ video { display: block; width: 100%; border-radius: 6px; background: #111; }
     transition: none;
   }
 }
+
+.title-icon {
+  width: 0.75em;
+  height: 0.75em;
+  vertical-align: baseline;
+  filter: brightness(0) invert(1);
+}

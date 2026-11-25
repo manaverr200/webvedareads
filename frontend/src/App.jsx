@@ -86,7 +86,9 @@ export default function App() {
       <div className="pinned-header">
         <header className="challenge-header">
           <div className="masthead">
-            <div className="wordmark">WebVeda Reads</div>
+            <div className="wordmark">
+  <img className="title-icon" src="/favicon.svg" alt="" /> WebVeda Reads
+</div>
             <h1>Reading Challenge</h1>
           </div>
           <div className="header-details">
