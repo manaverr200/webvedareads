@@ -1,4 +1,5 @@
 import express from "express";
+import { resolve } from "node:path";
 import { openDatabase } from "./databaseConf/connection.js";
 
 const app = express();
@@ -6,6 +7,7 @@ const db = openDatabase();
 const port = Number(process.env.PORT || 3001);
 
 app.use(express.json());
+app.use(express.static(resolve(import.meta.dirname, "../frontend/dist")));
 
 const findLists = db.prepare(`
   SELECT id, name

@@ -1,0 +1,161 @@
+:root {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #342a23;
+  background: #faf7ef;
+  --burgundy: #682f35;
+  --rule: #d8cbb4;
+  --muted: #675d50;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.page-width {
+  width: min(70rem, 92%);
+  margin-inline: auto;
+}
+
+.masthead {
+  padding-block: 1rem;
+  border-bottom: 3px solid #b69964;
+  background: var(--burgundy);
+  color: #fff9eb;
+  font-size: 1.4rem;
+}
+
+main {
+  padding-block: clamp(2rem, 6vw, 4.5rem);
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-weight: 500;
+}
+
+h1 {
+  margin-bottom: 2rem;
+  font-size: clamp(2.4rem, 6vw, 4.25rem);
+}
+
+.catalogue {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+}
+
+.list-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-block: 0.85rem;
+  border-block: 1px solid var(--rule);
+}
+
+h2 {
+  color: var(--burgundy);
+  font-size: 1.6rem;
+}
+
+.read-count,
+.read-control,
+.save-error {
+  font-family: system-ui, sans-serif;
+  font-size: 0.875rem;
+}
+
+.read-count,
+.book-author {
+  color: var(--muted);
+}
+
+.books {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.book-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.25rem 1rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.book-title,
+.book-author {
+  display: block;
+}
+
+.book-title {
+  font-size: 1.2rem;
+  line-height: 1.35;
+}
+
+.book-author {
+  margin-top: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.read-control {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+
+.read-control input {
+  width: 1.05rem;
+  height: 1.05rem;
+  margin: 0;
+  accent-color: var(--burgundy);
+}
+
+.read-control input:focus-visible {
+  outline: 2px solid var(--burgundy);
+  outline-offset: 3px;
+}
+
+.save-error {
+  grid-column: 1 / -1;
+  margin: 0.25rem 0 0;
+  color: var(--burgundy);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .book-author {
+    opacity: 0;
+    transform: translateY(-3px);
+    transition: opacity 150ms ease, transform 150ms ease;
+  }
+
+  .book-row:hover .book-author,
+  .book-row:focus-within .book-author {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-author {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .catalogue {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
