@@ -1,0 +1,16 @@
+{
+  "name": "webveda-reads-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "db:setup": "node --env-file=.env databaseConf/setup.js",
+    "db:seed": "node --env-file=.env databaseConf/database.js"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
