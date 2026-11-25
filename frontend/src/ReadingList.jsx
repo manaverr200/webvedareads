@@ -2,26 +2,21 @@ import { useState } from "react";
 
 function BookRow({ book, onSave }) {
   const [saving, setSaving] = useState(false);
-  const [saveError, setSaveError] = useState("");
 
   async function changeStatus(event) {
     const nextStatus = event.target.checked;
-
     setSaving(true);
-    setSaveError("");
 
     try {
       await onSave(book.id, nextStatus);
-    } catch {
-      setSaveError("Couldn’t save this change. Please try again.");
     } finally {
       setSaving(false);
     }
   }
 
   return (
-    <li className="book-row">
-      <div className="book-details">
+    <li className="book">
+      <div>
         <span className="book-title">{book.title}</span>
         <span className="book-author">{book.author}</span>
       </div>
@@ -32,24 +27,20 @@ function BookRow({ book, onSave }) {
           checked={book.isRead}
           disabled={saving}
           onChange={changeStatus}
-          aria-label={`Mark ${book.title} as read`}
+          aria-label={`${book.title}, read`}
         />
-        <span>{saving ? "Saving…" : "Read"}</span>
+        <span>Read</span>
       </label>
-
-      {saveError && <p className="save-error" role="alert">{saveError}</p>}
     </li>
   );
 }
 
 export default function ReadingList({ list, onSave }) {
   return (
-    <section className="reading-list" aria-labelledby={`list-${list.id}`}>
+    <section className="reading-list panel" aria-labelledby={`list-${list.id}`}>
       <div className="list-heading">
-        <h2 id={`list-${list.id}`}>{list.name}</h2>
-        <span className="read-count">
-          {list.readCount} of {list.totalBooks} read
-        </span>
+        <h3 id={`list-${list.id}`}>{list.name}</h3>
+        <span className="count">{list.readCount} of {list.totalBooks} read</span>
       </div>
 
       <ul className="books">
