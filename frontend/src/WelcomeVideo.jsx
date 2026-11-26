@@ -19,6 +19,7 @@ function VideoPlayer({ onRetry, onSaveError, collapseScrollY }) {
     clearTimeout(idleTimer.current);
     videoRef.current?.pause();
     if (document.activeElement === videoRef.current) {
+      // Give keyboard focus back to the button before the player folds away.
       tileRef.current?.focus({ preventScroll: true });
     }
     setExpanded(false);
@@ -45,7 +46,7 @@ function VideoPlayer({ onRetry, onSaveError, collapseScrollY }) {
     }
 
     function onWheel(event) {
-      // A short catalogue can already fit on screen, so there may be no scroll event.
+      // At the bottom, a wheel gesture can arrive without a scroll event.
       if (event.deltaY > 0 && !event.ctrlKey && window.scrollY >= collapseScrollY - 1) {
         closeDrawer();
       }
@@ -107,7 +108,7 @@ function VideoPlayer({ onRetry, onSaveError, collapseScrollY }) {
     const video = event.currentTarget;
     stopTimer();
 
-    // A finished clip should be ready to replay on the next visit.
+    // A finished video opens at the beginning.
     if (startAt > 0 && startAt < video.duration) {
       video.currentTime = startAt;
     }
@@ -119,7 +120,7 @@ function VideoPlayer({ onRetry, onSaveError, collapseScrollY }) {
 
     const positionSeconds = video.currentTime;
 
-    // Rapid play/pause clicks must reach SQLite in the order they happened.
+    // An earlier pause mustn't overwrite a later one.
     pendingSave.current = pendingSave.current
       .then(() => requestJson(progressUrl, {
         method: "PUT",

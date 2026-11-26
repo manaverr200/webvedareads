@@ -3,8 +3,7 @@ import { openDatabase } from "./connection.js";
 const db = openDatabase();
 
 try {
-  // Reviewers may rerun the seed after trying the app. Keep their checkmarks
-  // and the point where they paused the welcome video.
+  // Docker runs this on every start. Existing checkmarks and pause times win.
   db.exec(`
     BEGIN;
 

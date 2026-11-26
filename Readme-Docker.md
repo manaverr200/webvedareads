@@ -8,7 +8,7 @@ Run the following command from the abovemmentioned terminal:
 ```sh
 docker compose -f compose.yaml up --build -d
 ```
-Once the build is complete and the Conatiner status shows Started,
+Once the build is complete and the Container status shows Started,
 
 Open http://localhost:18080 to access the local application.
 On first startup, the app creates and seeds its SQLite database automatically.

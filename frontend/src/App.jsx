@@ -76,7 +76,7 @@ export default function App() {
         body: JSON.stringify({ isRead }),
       });
     } catch {
-      // Undo only this toggle. Other books in the list can save independently.
+      // Other books may have been ticked while this save was in flight.
       updateBook(listId, bookId, !isRead);
       setNotice("Couldn’t confirm your reading update. Please try again.");
     }

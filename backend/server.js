@@ -22,6 +22,7 @@ const findBooksByList = db.prepare(`
   ORDER BY id
 `);
 
+// Save the requested state so a retry can't flip it back.
 const setBookStatus = db.prepare(`
   UPDATE books
   SET is_read = ?
@@ -95,7 +96,7 @@ app.get("/api/video/progress", (req, res) => {
 app.put("/api/video/progress", (req, res) => {
   const positionSeconds = req.body?.positionSeconds;
 
-  // The player can pause between whole seconds. Keep that precision for resume.
+  // A pause can land between seconds.
   if (!Number.isFinite(positionSeconds) || positionSeconds < 0) {
     return res.status(400).json({ error: "positionSeconds must be a non-negative number." });
   }

@@ -14,7 +14,7 @@ export async function withMinimumLoader(request) {
   try {
     return await request;
   } finally {
-    // A fast rejection should get the same loading treatment as a fast success.
+    // Give the loader its 750 ms even on a fast failure.
     await minimumTime;
   }
 }

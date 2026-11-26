@@ -9,6 +9,7 @@ export function openDatabase() {
     throw new Error("Set DATABASE_PATH in backend/.env before opening the database.");
   }
 
+  // Relative paths start in backend, wherever Node was launched.
   const databasePath = resolve(import.meta.dirname, "..", configuredPath);
   mkdirSync(dirname(databasePath), { recursive: true });
 
