@@ -12,6 +12,7 @@ export default function App() {
   const [loadAttempt, setLoadAttempt] = useState(0);
   const [notice, setNotice] = useState("");
   const pageRef = useRef(null);
+  const [listView, setListView] = useState("horizontal");
 
   useEffect(() => {
     const page = pageRef.current;
@@ -110,12 +111,48 @@ export default function App() {
         </header>
 
         <WelcomeVideo onSaveError={setNotice} collapseScrollY={headerScrollDistance} />
+
+        <div className="catalogue-heading">
+          <h2 id="catalogue-title">Reading lists</h2>
+
+          <div className="view-control">
+            <span id="view-label">View</span>
+
+            <div className="view-switch" role="group" aria-labelledby="view-label">
+              <button
+                type="button"
+                title="Horizontal"
+                aria-label="Horizontal"
+                aria-pressed={listView === "horizontal"}
+                onClick={() => setListView("horizontal")}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="2" y="5" width="5" height="14" rx="1" />
+                  <rect x="9.5" y="5" width="5" height="14" rx="1" />
+                  <rect x="17" y="5" width="5" height="14" rx="1" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                title="Stacked"
+                aria-label="Stacked"
+                aria-pressed={listView === "stacked"}
+                onClick={() => setListView("stacked")}
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="5" y="2" width="14" height="5" rx="1" />
+                  <rect x="5" y="9.5" width="14" height="5" rx="1" />
+                  <rect x="5" y="17" width="14" height="5" rx="1" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <main aria-label="Reading lists">
         <section id="reading-lists" aria-labelledby="catalogue-title">
-          <h2 id="catalogue-title">Reading lists</h2>
-
           {loading && (
             <p className="loading panel" role="status">
               <span className="spinner" aria-hidden="true" />
@@ -132,9 +169,13 @@ export default function App() {
             </div>
           )}
 
-          {!loading && !loadError && lists.map((list) => (
-            <ReadingList key={list.id} list={list} onSave={saveBookStatus} />
-          ))}
+          {!loading && !loadError && (
+  <div className="reading-lists-layout" data-view={listView}>
+    {lists.map((list) => (
+      <ReadingList key={list.id} list={list} onSave={saveBookStatus} />
+    ))}
+  </div>
+)}
         </section>
 
       </main>

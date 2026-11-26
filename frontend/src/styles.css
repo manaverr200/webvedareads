@@ -133,7 +133,7 @@ a { color: inherit; }
 
 main {
   /* The first part of the page scroll folds the header before the books move up. */
-  padding: calc(var(--section-gap) + var(--header-travel, 0px)) 15px 32px;
+  padding: calc(15px + var(--header-travel, 0px)) 15px 32px;
 }
 h1, h2, h3 { font-family: var(--heading); margin: 0; }
 
@@ -369,4 +369,85 @@ video { display: block; width: 100%; border-radius: 6px; background: #111; }
   height: 0.75em;
   vertical-align: baseline;
   filter: brightness(0) invert(1);
+}
+
+.catalogue-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 5px;
+  margin: var(--section-gap) 15px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.catalogue-heading h2 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.view-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font: 600 0.86rem/1.4 var(--sans);
+}
+
+.view-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.view-switch button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--navy);
+}
+
+.view-switch button:hover {
+  background: var(--paper);
+}
+
+.view-switch button[aria-pressed="true"] {
+  background: var(--navy);
+  color: white;
+}
+
+.view-switch svg {
+  width: 19px;
+  height: 19px;
+  fill: currentColor;
+}
+
+@media (width > 600px) {
+  .reading-lists-layout[data-view="stacked"] {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--section-gap);
+  }
+
+  .reading-lists-layout[data-view="stacked"] .books {
+    grid-template-columns: 1fr;
+  }
+
+  .reading-lists-layout[data-view="stacked"] .list-heading {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .view-control {
+    display: none;
+  }
 }
