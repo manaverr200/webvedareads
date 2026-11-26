@@ -1,29 +1,27 @@
 # Run WebVeda Reads with Docker
 
-Install Docker Desktop, select Linux containers, and start Docker Desktop.
-Clone this repository and open a terminal in the folder containing `compose.yaml`.
+Install & Start Docker Desktop (Select Linux containers)
+Clone this repository and open a terminal in the root directory containing `compose.yaml`.
 
 ## Build and run
-
+Run the following command from the abovemmentioned terminal: 
 ```sh
 docker compose -f compose.yaml up --build -d
 ```
+Once the build is complete and the Conatiner status shows Started,
 
-Open http://localhost:8080. The first build installs the dependencies and
-builds the React frontend. Express serves the website and API from one
-container. On first startup, the app creates and seeds its SQLite database.
+Open http://localhost:18080 to access the local application.
+On first startup, the app creates and seeds its SQLite database automatically.
 
-## Verify
+## Verification Steps
 
-1. On a fresh volume, confirm that Victorian Era and Russian Literature each
-   show three books and zero read.
-2. Mark a book as read. Refresh the page and confirm the checkmark and list
+1. On a fresh build, confirm 2 reading lists each showing 0 of 3 Books Read.
+2. Mark a book as read. Refresh the page and confirm that the read status and list
    count are saved.
 3. Play the welcome video for several seconds, pause it, refresh the page,
-   and press play. Confirm it resumes near the saved position.
-4. To verify persistence across container replacement, run the stop command
-   below, then run the build-and-run command again from the same folder.
-   Confirm the book status and video position are still saved.
+   and press play. Verify that it resumes at the saved position.
+4. To verify container persistence, run the stop command (mentioned in the next section)
+   build again, and verify that the book status and video position are still saved.
 
 ## Stop
 
@@ -31,4 +29,4 @@ container. On first startup, the app creates and seeds its SQLite database.
 docker compose -f compose.yaml down
 ```
 
-The named volume keeps the SQLite database for the next run.
+The SQLite database is preserved for the next run.
